@@ -4,6 +4,7 @@
 #
 #
 
+import logging
 import sys
 import fnmatch
 import os.path
@@ -11,6 +12,8 @@ from os.path import basename
 from kafka.client import KafkaClient
 from kafka.consumer import SimpleConsumer
 from kafka.producer import SimpleProducer, KeyedProducer
+
+logging.basicConfig()
 
 def getFilesToWorkOn(inputPath):
     files = [] # TODO still need to support XMLs
