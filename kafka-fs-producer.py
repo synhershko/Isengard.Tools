@@ -58,9 +58,7 @@ def producerMain(args):
     # Notes:
     # * If the producer dies before the messages are sent, there will be losses
     # * Call producer.stop() to send the messages and cleanup
-    producer = SimpleProducer(kafka, batch_send=True,
-                          batch_send_every_n=20,
-                          batch_send_every_t=60)
+    producer = SimpleProducer(kafka) #, batch_send=True, batch_send_every_n=20, batch_send_every_t=60)
 
     # To wait for acknowledgements
     # ACK_AFTER_LOCAL_WRITE : server will wait till the data is written to
@@ -71,11 +69,11 @@ def producerMain(args):
     #                      req_acks=SimpleProducer.ACK_AFTER_LOCAL_WRITE,
     #                      ack_timeout=2000)
 
-
     seenFiles = False
     for path in args[1:]:
         files = getFilesToWorkOn(path)
         for filename in files:
+            print "File: " + filename
             f = open(filename, "r")
             if filename.endswith(".csv"):
                 sendFromCsv(producer, f)
@@ -84,8 +82,8 @@ def producerMain(args):
                 sendFromXml(producer, f)
                 seenFiles = True
 
-    if seenFiles:
-        producer.stop() # send the remaining batched messages and cleanup
+    #if seenFiles:
+    #    producer.stop() # send the remaining batched messages and cleanup
     kafka.close()
 
     return
