@@ -28,7 +28,7 @@ def getFilesToWorkOn(inputPath):
 def sendFromCsv(producer, f):
     for line in f:
         # Note that the application is responsible for encoding messages to type str
-        response = producer.send_messages("csv-data", l)
+        response = producer.send_messages("csv-data", line)
 
         if response:
             print(response[0].error)
