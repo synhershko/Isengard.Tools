@@ -69,17 +69,17 @@ def producerMain(args):
     #                      ack_timeout=2000)
 
 
-    seenFiles = false
+    seenFiles = False
     for path in args[1:]:
         files = getFilesToWorkOn(path)
         for filename in files:
             f = open(filename, "r")
             if filename.endswith(".csv"):
                 sendFromCsv(producer, f)
-                seenFiles = true
+                seenFiles = True
             elif filename.endswith(".xml"):
                 sendFromXml(producer, f)
-                seenFiles = true
+                seenFiles = True
 
     if seenFiles:
         producer.stop() # send the remaining batched messages and cleanup
