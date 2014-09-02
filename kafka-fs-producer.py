@@ -70,7 +70,7 @@ def producerMain(args):
 
 
     for path in args[1:]:
-        files = getFilesToWorkOn(parth)
+        files = getFilesToWorkOn(path)
         for filename in files:
             f = open(filename, "r")
             if filename.endswith(".csv"):
