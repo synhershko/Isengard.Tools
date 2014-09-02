@@ -26,7 +26,6 @@ def sendFromCsv(producer, f):
     for line in f:
 		# Note that the application is responsible for encoding messages to type str
 		response = producer.send_messages("csv-data", l)
-		#producer.send_messages("my-topic", u'你怎么样?'.encode('utf-8')) # Send unicode message
 
 		if response:
     		print(response[0].error)
