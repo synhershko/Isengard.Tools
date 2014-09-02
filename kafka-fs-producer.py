@@ -69,16 +69,20 @@ def producerMain(args):
     #                      ack_timeout=2000)
 
 
+    seenFiles = false
     for path in args[1:]:
         files = getFilesToWorkOn(path)
         for filename in files:
             f = open(filename, "r")
             if filename.endswith(".csv"):
                 sendFromCsv(producer, f)
+                seenFiles = true
             elif filename.endswith(".xml"):
                 sendFromXml(producer, f)
+                seenFiles = true
 
-    producer.stop() # send the remaining batched messages and cleanup
+    if seenFiles:
+        producer.stop() # send the remaining batched messages and cleanup
     kafka.close()
 
     return
